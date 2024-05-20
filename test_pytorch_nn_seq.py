@@ -4,6 +4,7 @@ from torch import nn
 from torch.utils.data import DataLoader
 from torchvision import datasets, transforms
 import numpy as np
+import pandas
 
 # input_image = torch.rand(3,28,28)
 # print("Input: ",input_image.size())
@@ -33,15 +34,24 @@ import numpy as np
 # print("softmax output type",type(pred_probab))
 # print("predicted output",pred_probab.argmax(1))
 
-max_seq_len = 512
-n_head = 8
+max_seq_len = 4
+n_head = 1
 test = nn.Parameter(torch.zeros(2*max_seq_len-1, n_head))
+print("test:",test.shape)
 test2 = torch.nn.init.trunc_normal_(test,std=0.02)
+print("test2:",test2)
 coords_h = np.arange(max_seq_len)
 coords_w = np.arange(max_seq_len-1, -1, -1)
-coords = coords_h[:, None] + coords_w[None, :]
-print(coords.shape)
+coords = coords_h[:, None] + coords_w[None, :]-(2*max_seq_len-1)
+print("coords shape:",coords.shape)
+print("coords:\n",coords)
 test3 = coords.flatten()
-print("test:",test.shape)
-print("test2:",test2)
 print("test3",test3.shape)
+
+file = open("./train_data/Apr23_out.txt",'r')
+splitlines = file.read().split('\n')
+# print(splitlines[0].split(' '))
+file_pd = pandas.read_csv("./train_data/Apr23_out.txt",header=None)
+print(file_pd[0][0].split(' '))
+# for line in splitlines:
+#     print(line)
