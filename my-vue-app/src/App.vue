@@ -5,7 +5,8 @@
 </template>
 
 <script>
-import UserGreeting from './components/UserGreeting.vue';
+// import UserGreeting from './components/UserGreeting.vue';
+import UserGreeting from './components/UserGreetingFastapi.vue';
 
 export default {
   name: 'App',
